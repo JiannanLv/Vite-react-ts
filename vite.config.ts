@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import { resolve } from 'path'
 import react from '@vitejs/plugin-react'
-// import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
+import urlToModule from 'rollup-plugin-import-meta-url-to-module'
 import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vitejs.dev/config/
@@ -20,5 +20,6 @@ export default defineConfig({
       ...viteMockServe(),
       apply: 'serve', // 开发时应用
     },
+    urlToModule(),
   ],
 })

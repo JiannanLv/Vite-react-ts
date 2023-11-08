@@ -1,23 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import  { useState } from 'react'
+import reactLogo from '@/assets/react.svg'
 import viteLogo from '/vite.svg'
-import { getUsersApi } from "./api";
-import './App.css'
+import { getUsersApi } from '@/api'
+import './style.less'
 
 // => 响应数据类型声明
 interface UserProps {
-  name: string;
-  phone: string;
-  address: string;
+  name: string
+  phone: string
+  address: string
 }
-
-function App() {
+const App = () => {
   const [count, setCount] = useState(0)
-  getUsersApi<GD.BaseResponse<UserProps>>().then(res => {
-  if(res && res.code === 0) {
-    console.log(res.data);
-  }
-})
+  getUsersApi<GD.BaseResponse<UserProps>>().then((res) => {
+    if (res && res.code === 0) {
+      console.log(res.data)
+    }
+  })
   return (
     <>
       <div>
