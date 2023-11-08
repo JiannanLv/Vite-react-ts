@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import  { useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import './style.less';
 
@@ -9,18 +9,18 @@ const TabBar: React.FC = () => {
       {
         path: '/',
         text: '首页',
-        iconPath: new URL('./images/icon_tab_1.png', import.meta.url),
+        iconPath: new URL('@/assets/images/icon_tab_1.png', import.meta.url),
         selectedIconPath: new URL(
-          './images/icon_tab_1_sel.png',
+          '@/assets/images/icon_tab_1_sel.png',
           import.meta.url
         ),
       },
       {
         path: '/mine',
         text: '我的',
-        iconPath: new URL('./images/icon_tab_4.png', import.meta.url),
+        iconPath: new URL('@/assets/images/icon_tab_4.png', import.meta.url),
         selectedIconPath: new URL(
-          './images/icon_tab_4_sel.png',
+          '@/assets/images/icon_tab_4_sel.png',
           import.meta.url
         ),
       },

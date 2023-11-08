@@ -1,46 +1,44 @@
-import  { useState } from 'react'
-import reactLogo from '@/assets/react.svg'
-import viteLogo from '/vite.svg'
-import { getUsersApi } from '@/api'
+import  { CSSProperties, Component } from 'react';
+import NotEnv from '@/components/notEnv';
 import './style.less'
 
-// => 响应数据类型声明
-interface UserProps {
-  name: string
-  phone: string
-  address: string
-}
-const App = () => {
-  const [count, setCount] = useState(0)
-  getUsersApi<GD.BaseResponse<UserProps>>().then((res) => {
-    if (res && res.code === 0) {
-      console.log(res.data)
+const errorStyles: CSSProperties = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '12px',
+  letterSpacing: '2px',
+  paddingTop: '100px',
+};
+console.log(121212121)
+export class ErrorBoundary extends Component<
+  { children?: JSX.Element },
+  { hasError: boolean }
+> {
+  constructor(props: { children?: JSX.Element }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    // 更新 state 使下一次渲染能够显示降级后的 UI
+    return { hasError: true };
+  }
+  render() {
+    // 渲染错误视图
+    if (this.state.hasError) {
+      return <h1 style={errorStyles}>Something went wrong.</h1>;
     }
-  })
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    // 渲染正确视图
+    return this.props.children;
+  }
 }
-
-export default App
+export const GuardEnv: React.FC<{ children?: JSX.Element }> = ({
+  children,
+}) => {
+  return import.meta.env.VITE_APP_SOURCE === 'mp'  ? (
+    <NotEnv />
+  ) : (
+    <>{children}</>
+  );
+};
